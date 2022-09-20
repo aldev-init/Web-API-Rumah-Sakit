@@ -56,7 +56,9 @@ public class AuthController {
             "&emsp;&emsp; \"username\":\"(Masukan username anda)\"<br>" +
             "&emsp;&emsp; \"password\":\"(Masukan password anda)\"<br>" +
             "}<br>" +
-            "</div>")
+            "</div>" +
+            "<br>" +
+            "Lalu tekan tombol <b>execute</b>,setelah itu nanti akan muncul data login dan token.")
     public Response Login(LoginRequest request){
         return authService.Login(request);
     }

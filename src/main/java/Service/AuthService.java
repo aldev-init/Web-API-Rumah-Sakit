@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -57,6 +58,22 @@ public class AuthService {
     }
 
     public Response RegisterInsertData(RegisterRequest request){
+
+        //validate
+        if(!ValidateInput.EmailInput(request.email)){
+            JsonObject result = new JsonObject();
+            result.put("message","Format input email Salah!!");
+            return Response.status(Response.Status.BAD_REQUEST).entity(result).build();
+        }
+
+        if(!ValidateInput.PhoneNumberInput(request.phone_number)){
+            JsonObject result = new JsonObject();
+            result.put("message","Format input phone_number Salah!!");
+            return Response.status(Response.Status.BAD_REQUEST).entity(result).build();
+        }
+        //===========================================================================
+
+        LocalDateTime time = LocalDateTime.now();
         Users user = new Users();
         user.setName(request.name);
         user.setEmail(request.email);
@@ -64,10 +81,14 @@ public class AuthService {
         user.setPassword(request.password);
         user.setPhoneNumber(request.phone_number);
         user.setUserType(request.user_type);
+        user.setCreated_at(time);
+        user.setUpdated_at(time);
 
         //save
         Users.persist(user);
 
-        return Response.ok(user).build();
+        JsonObject result = new JsonObject();
+        result.put("data",user);
+        return Response.ok(result).build();
     }
 }

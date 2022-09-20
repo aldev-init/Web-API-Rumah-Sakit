@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "obat")
 @Getter
 @Setter
-public class Obat extends PanacheEntityBase {
+public class Obat extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true,nullable = false,name = "id")

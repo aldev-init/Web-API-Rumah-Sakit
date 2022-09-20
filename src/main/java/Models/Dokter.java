@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "dokter")
 @Getter
 @Setter
-public class Dokter extends PanacheEntityBase {
+public class Dokter extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class Dokter extends PanacheEntityBase {
     private String namaLengkap;
 
     @Column(name = "is_spesialis")
-    private boolean isSpesialis;
+    private int isSpesialis;
 
     @Column(name = "spesialis_nama")
     private String spesialisNama;

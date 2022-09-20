@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "daftar_shift")
 @Getter
 @Setter
-public class DaftarShift extends PanacheEntityBase {
+public class DaftarShift extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

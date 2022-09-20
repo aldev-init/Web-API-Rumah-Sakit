@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "resep_obat")
 @Getter
 @Setter
-public class ResepObat extends PanacheEntityBase {
+public class ResepObat extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

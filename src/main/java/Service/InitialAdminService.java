@@ -9,6 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -35,6 +37,7 @@ public class InitialAdminService {
         Optional<Users> superAdmin = Users.find("user_type = ?1",userType).firstResultOptional();
 
         if(!superAdmin.isPresent()){
+            LocalDateTime time = LocalDateTime.now();
             Users users = new Users();
             users.setName(name);
             users.setEmail(email);
@@ -42,6 +45,8 @@ public class InitialAdminService {
             users.setUsername(username);
             users.setPhoneNumber(phoneNumber);
             users.setUserType(userType);
+            users.setCreated_at(time);
+            users.setUpdated_at(time);
             //save
             Users.persist(users);
 

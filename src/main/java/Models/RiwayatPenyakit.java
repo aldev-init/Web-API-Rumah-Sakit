@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "riwayat_penyakit")
 @Getter
 @Setter
-public class RiwayatPenyakit extends PanacheEntityBase {
+public class RiwayatPenyakit extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

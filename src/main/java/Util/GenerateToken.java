@@ -8,6 +8,7 @@ public class GenerateToken {
         String token = Jwt.issuer("aldev-resource")
                 .upn(users.getName())
                 .groups(users.getUserType())
+                .expiresIn(18000)
                 .sign();
         return  token;
     }
