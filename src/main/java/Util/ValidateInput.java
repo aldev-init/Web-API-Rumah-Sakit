@@ -1,6 +1,9 @@
 package Util;
 
 public class ValidateInput {
+
+    public static String[] posisiStaff = {"Security","Janitor","Receipt","Engineer"};
+
     public static boolean EmailInput(String input){
         if(!input.contains("@")){
             return false;
@@ -50,5 +53,12 @@ public class ValidateInput {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public static boolean positionStaffInput(String input){
+        if(input.equals(posisiStaff[0]) || input.equals(posisiStaff[1]) || input.equals(posisiStaff[2]) || input.equals(posisiStaff[3])){
+            return true;
+        }
+        return false;
     }
 }

@@ -6,6 +6,7 @@ import Models.Dokter;
 import Util.ValidateInput;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.vertx.core.json.JsonObject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.DefaultValue;
@@ -19,6 +20,9 @@ import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class DokterService{
+
+    @ConfigProperty(name = "PAGINATE_PER_PAGE")
+    int paginate;
 
     public Response CreateDockter(CreateDokterRequest request){
         if(!ValidateInput.BooleanInput(request.is_spesialis)){
@@ -81,7 +85,6 @@ public class DokterService{
             @QueryParam("phone_number") String phoneNumber
 
     ){
-        int paginate = 2;
         long dokterSize;
         List<Dokter> dokter = new ArrayList<>();
         //validate input
