@@ -22,13 +22,8 @@ public class DaftarShift extends AuditModel {
     private String Kategori;
 
     //sementara
-    @ManyToOne
-    @JoinColumn(name = "perawat_id")
-    private Perawat perawatId;
-
-    @ManyToOne
-    @JoinColumn(name = "staff_id")
-    private Staff staffId;
+    @Column(name = "foreign_id")
+    private long foreignId;
 
     @Column(name = "start_datetime")
     private LocalDateTime startDateTime;

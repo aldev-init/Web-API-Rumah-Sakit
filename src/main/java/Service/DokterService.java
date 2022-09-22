@@ -77,12 +77,12 @@ public class DokterService{
     }
 
     public Response GetAll(
-            @QueryParam("page") int page,
+            int page,
             //filter section
-            @QueryParam("spesialis") String spesialis,
-            @QueryParam("nama") String nama,
-            @QueryParam("email") String email,
-            @QueryParam("phone_number") String phoneNumber
+            String spesialis,
+            String nama,
+            String email,
+            String phoneNumber
 
     ){
         long dokterSize;

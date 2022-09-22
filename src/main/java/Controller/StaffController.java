@@ -23,7 +23,7 @@ public class StaffController {
             "Tidak hanya menampilkan saja,tetapi terdapat fitur filter didalam API ini,Filter tersebut berdasarkan:<br>" +
             "- Nama<br>- Email<br>- Phone Number<br>" +
             "<br>" +
-            "<b>*Ketentuan untuk Filter Data Dokter</b>" +
+            "<b>*Ketentuan untuk Filter Data Staff</b>" +
             "<br>" +
             "<ul>" +
             "<li>query <b>Page</b> diperlukan dan tidak boleh kosong,karena berpengaruh terhadap pagination.</li>" +

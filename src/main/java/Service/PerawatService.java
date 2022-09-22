@@ -21,12 +21,11 @@ public class PerawatService {
     int paginate;
 
     public Response GetAll(
-            @DefaultValue("0")
-            @QueryParam("page") int page,
+            int page,
             //filter section
-            @QueryParam("nama") String nama,
-            @QueryParam("email") String email,
-            @QueryParam("phone_number") String phone_number
+            String nama,
+            String email,
+            String phone_number
     ){
         long perawatSize;
         List<Perawat> perawat = new ArrayList<>();

@@ -3,6 +3,9 @@ package Util;
 public class ValidateInput {
 
     public static String[] posisiStaff = {"Security","Janitor","Receipt","Engineer"};
+    public static String[] pegawaiKategori = {"dokter","perawat","staff"};
+
+    public static String[] hari = {"senin","selasa","rabu","kamis","jumat","sabtu","minggu"};
 
     public static boolean EmailInput(String input){
         if(!input.contains("@")){
@@ -59,6 +62,34 @@ public class ValidateInput {
         if(input.equals(posisiStaff[0]) || input.equals(posisiStaff[1]) || input.equals(posisiStaff[2]) || input.equals(posisiStaff[3])){
             return true;
         }
+        return false;
+    }
+
+    public static boolean pegawaiKategori(String input){
+        String lower = input.toLowerCase();
+        if(lower.equals(pegawaiKategori[0]) || lower.equals(pegawaiKategori[1]) || lower.equals(pegawaiKategori[2])){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean daftarShiftKategori(String input){
+        String lower = input.toLowerCase();
+        if(lower.equals(pegawaiKategori[1]) || lower.equals(pegawaiKategori[2])){
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean hariInput(String input){
+        String lower = input.toLowerCase();
+        if(lower.equals(hari[0]) || lower.equals(hari[1]) || lower.equals(hari[2])
+        || lower.equals(hari[3]) || lower.equals(hari[4]) || lower.equals(hari[5])
+        || lower.equals(hari[6])){
+            return true;
+        }
+
         return false;
     }
 }
