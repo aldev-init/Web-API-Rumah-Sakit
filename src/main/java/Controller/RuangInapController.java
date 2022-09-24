@@ -27,7 +27,7 @@ public class RuangInapController {
             "<li>untuk Field Kosong False artinya tidak kosong dan True artinya kosong" +
             "</ul>")
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     public Response getAll(
             @DefaultValue("0")
             @QueryParam("page") int page
@@ -46,7 +46,7 @@ public class RuangInapController {
             "}<br>")
     @POST
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     public Response createRuangInap(CreateRuangInapRequest request){
         return ruangInapService.CreateRuangInap(request);
     }
@@ -65,7 +65,7 @@ public class RuangInapController {
     @PUT
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("UPDATE")
     public Response updateRuangInap(
             @PathParam("id") long id,
             UpdateRuangInapRequest request
@@ -80,7 +80,7 @@ public class RuangInapController {
     @DELETE
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("DELETE")
     public Response deleteRuangInap(
             @PathParam("id") long id
     ){

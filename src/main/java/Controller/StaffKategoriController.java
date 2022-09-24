@@ -21,7 +21,7 @@ public class StaffKategoriController {
     @Operation(summary = "Untuk Menampilkan List Enum Posisi/Kategori Staff",description = "API ini digunakan untuk " +
             "menampilkan List Data enum posisi/kategori Staff.")
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     public Response getAll(){
         return staffKategoriService.GetAll();
     }

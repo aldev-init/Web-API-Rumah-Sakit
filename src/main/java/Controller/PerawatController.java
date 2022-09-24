@@ -32,7 +32,7 @@ public class PerawatController {
             "<li>untuk query <b>phone_number</b> gunakan format +62 diawal." +
             "<li>untuk query <b>email</b> gunakan @gmail.com,@yahoo.com dll.</li>")
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     public Response getAll(
             @DefaultValue("0")
             @QueryParam("page") int page,
@@ -57,7 +57,7 @@ public class PerawatController {
             "}<br>")
     @POST
     @Transactional
-    @RolesAllowed({"Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     public Response createAddPerawat(CreatePerawatRequest request){
         return perawatService.createPerawat(request);
     }

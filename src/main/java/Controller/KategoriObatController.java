@@ -23,7 +23,7 @@ public class KategoriObatController {
     @Operation(summary = "Untuk Menampilkan Enum List Data Kategori Obat",description = "API ini digunakan untuk melihat list enun data kategori obat," +
             "yang nantinya untuk validasi Kategori pada API tambah/filter/ubah <b>Obat</b>")
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     public Response getAll(){
         return kategoriObatService.GetAll();
     }

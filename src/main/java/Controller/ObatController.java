@@ -31,7 +31,7 @@ public class ObatController {
             "<li>filter ini fleksible dapat diisi semua,hanya dua,atau salah satu saja.</li>" +
             "<li>untuk query <b>kategori</b> hanya bisa diisi oleh list enum yang ada di API Kategori Obat.")
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     public Response getAll(
             @DefaultValue("0")
             @QueryParam("page") int page,
@@ -55,7 +55,7 @@ public class ObatController {
             "}<br>")
     @POST
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     public Response createObat(CreateObatRequest request){
         return obatService.CreateObat(request);
     }
@@ -74,7 +74,7 @@ public class ObatController {
     @PUT
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("UPDATE")
     public Response updateObat(
             @PathParam("id") long id,
             UpdateObatRequest request
@@ -88,7 +88,7 @@ public class ObatController {
     @DELETE
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("DELETE")
     public Response deleteObat(
             @PathParam("id") long id
     ){

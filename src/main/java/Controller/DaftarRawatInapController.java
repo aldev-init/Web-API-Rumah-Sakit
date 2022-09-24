@@ -21,7 +21,7 @@ public class DaftarRawatInapController {
     DaftarRawatInapService daftarRawatInapService;
 
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     @Operation(summary = "Untuk Menampilkan Data Daftar Rawat Inap",description = "API ini digunakan untuk menampilkan daftar data Daftar Rawat Inap dengan format Pagination.<br>" +
             "<ul>" +
             "<li>query <b>Page</b> diperlukan dan tidak boleh kosong,karena berpengaruh terhadap pagination.</li>" +
@@ -35,7 +35,7 @@ public class DaftarRawatInapController {
 
     @POST
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     @Operation(summary = "Untuk Membuat Data Daftar Rawat Inap",description = "API ini digunakan untuk membuat data Daftar Rawat Inap baru.<br>" +
             "<br>" +
             "<b>*Ketentuan mengisi body Request</b><br>" +
@@ -56,7 +56,7 @@ public class DaftarRawatInapController {
     @PUT
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("UPDATE")
     @Operation(summary = "Untuk Merubah Data Daftar Rawat Inap",description = "API ini digunakan untuk Merubah data Daftar Rawat Inap baru.<br>" +
             "<br>" +
             "Path parameter <b>id</b> diperlukan untuk proses merubah data<br>" +
@@ -81,7 +81,7 @@ public class DaftarRawatInapController {
     @POST
     @Transactional
     @Path("/checkout/{id}")
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     @Operation(summary = "Untuk Checkout Daftar Rawat Inap",description = "API ini digunakan untuk checkout rawat inap.<br>" +
             "<br>" +
             "*Masukan <b>Id</b> pada Daftar Rawat Inap<br>" +

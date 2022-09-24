@@ -18,7 +18,7 @@ public class PasienController {
     PasienService pasienService;
 
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     @Operation(summary = "Untuk Menampilkan Data Pasien",description = "API ini digunakan untuk menampilkan daftar data Pasien dengan format Pagination.<br>" +
             "Tidak hanya menampilkan saja,tetapi terdapat fitur filter didalam API ini,Filter tersebut berdasarkan:<br>" +
             "- Email<br>- Nama<br>- Phone Number<br>" +
@@ -43,7 +43,7 @@ public class PasienController {
 
     @POST
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     @Operation(summary = "Untuk Membuat Data Pasien",description = "API ini digunakan untuk membuat data Pasien baru.<br>" +
             "<br>" +
             "<b>*Ketentuan mengisi body Request</b><br>" +
@@ -64,7 +64,7 @@ public class PasienController {
     @PUT
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("UPDATE")
     @Operation(summary = "Untuk Merubah Data Pasien",description = "API ini digunakan untuk Merubah data Pasien baru.<br>" +
             "<br>" +
             "Path parameter <b>id</b> diperlukan untuk proses merubah data<br>" +
@@ -89,7 +89,7 @@ public class PasienController {
     @DELETE
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("DELETE")
     @Operation(summary = "Untuk Hapus Pasien",description = "API ini digunakan untuk hapus Pasien.<br>" +
             "<br>" +
             "Path parameter <b>id</b> diperlukan untuk proses penghapusan data"+

@@ -23,7 +23,7 @@ public class RuangInapKategoriController {
     @Operation(summary = "Untuk Menampilkan List Enum Kategori Ruang Inap",description = "API ini digunakan untuk " +
             "menampilkan List Data enum Kategori Ruang Inap.")
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     public Response getAll(){
         return ruangInapKategoriService.GetAll();
     }

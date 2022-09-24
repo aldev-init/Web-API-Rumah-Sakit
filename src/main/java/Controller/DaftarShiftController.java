@@ -34,7 +34,7 @@ public class DaftarShiftController {
             "}<br>")
     @POST
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     public Response CreateDaftarShift(CreateDaftarShiftRequest request){
         return daftarShiftService.CreateShift(request);
     }
@@ -57,7 +57,7 @@ public class DaftarShiftController {
     @PUT
     @Path("/{id}")
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("UPDATE")
     public Response UpdateDaftarShift(
             @PathParam("id") long id,
             UpdateDaftarShiftRequest request){

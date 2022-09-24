@@ -33,7 +33,7 @@ public class JadwalPraktikController {
             "}<br>")
     @POST
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     public Response createJadwalPraktik(CreateJadwalPraktikRequest request){
         return jadwalPraktikService.CreateJadwalPraktik(request);
     }
@@ -54,7 +54,7 @@ public class JadwalPraktikController {
     @PUT
     @Path("/{id}")
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("UPDATE")
     public Response updateJadwalPraktik(
             @PathParam("id") long id,
             UpdateJadwalPraktikRequest request

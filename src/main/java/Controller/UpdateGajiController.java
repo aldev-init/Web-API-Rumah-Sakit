@@ -40,7 +40,7 @@ public class UpdateGajiController {
             "<br>" )
     @POST
     @Transactional
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("UPDATE")
     public Response UpdateGaji(CreateUpdateGajiRequest request){
         return updateGajiService.UpdateGaji(request);
     }

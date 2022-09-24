@@ -20,7 +20,7 @@ public class DokterController {
     DokterService dokterService;
 
     @GET
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("SELECT")
     @Operation(summary = "Untuk Menampilkan Data Dokter",description = "API ini digunakan untuk menampilkan daftar data Dokter dengan format Pagination.<br>" +
             "Tidak hanya menampilkan saja,tetapi terdapat fitur filter didalam API ini,Filter tersebut berdasarkan:<br>" +
             "- Email<br>- Nama<br>- Phone Number<br>- is_Spesialis<br>" +
@@ -47,7 +47,7 @@ public class DokterController {
     }
 
     @POST
-    @RolesAllowed({"User","Admin","Super Admin"})
+    @RolesAllowed("CREATE")
     @Transactional
     @Operation(summary = "Untuk Membuat Data Dokter",description = "API ini digunakan untuk membuat data Dokter baru.<br>" +
             "<br>" +
