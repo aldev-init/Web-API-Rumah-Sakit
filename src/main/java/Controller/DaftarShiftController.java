@@ -55,7 +55,7 @@ public class DaftarShiftController {
             "&emsp;&emsp; \"endDateTime\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
             "}<br>")
     @PUT
-    @Path("/daftarshift/{id}")
+    @Path("/{id}")
     @Transactional
     @RolesAllowed({"User","Admin","Super Admin"})
     public Response UpdateDaftarShift(

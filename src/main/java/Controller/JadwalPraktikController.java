@@ -52,7 +52,7 @@ public class JadwalPraktikController {
             "&emsp;&emsp; \"dokter_id\":(isi dengan id dokter).<br>" +
             "}<br>")
     @PUT
-    @Path("/jadwalpraktik/{id}")
+    @Path("/{id}")
     @Transactional
     @RolesAllowed({"User","Admin","Super Admin"})
     public Response updateJadwalPraktik(

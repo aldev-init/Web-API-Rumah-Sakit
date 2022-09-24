@@ -57,7 +57,6 @@ public class StaffController {
             "&emsp;&emsp; \"<b>status</b>\":(Masukan status Staff)<br>" +
             "}<br>")
     @POST
-    @Path("/staff")
     @Transactional
     @RolesAllowed({"Admin","Super Admin"})
     public Response CreateStaff(CreateStaffRequest request){

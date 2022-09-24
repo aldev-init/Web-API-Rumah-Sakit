@@ -56,7 +56,6 @@ public class PerawatController {
             "&emsp;&emsp; \"<b>status</b>\":(Masukan status Perawat)<br>" +
             "}<br>")
     @POST
-    @Path("/perawat")
     @Transactional
     @RolesAllowed({"Admin","Super Admin"})
     public Response createAddPerawat(CreatePerawatRequest request){

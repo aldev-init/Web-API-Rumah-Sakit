@@ -7,6 +7,10 @@ public class ValidateInput {
 
     public static String[] hari = {"senin","selasa","rabu","kamis","jumat","sabtu","minggu"};
 
+    public static String[] kategoriObat = {"syrup","pil","tablet","cair","other"};
+
+    public static String[] kategoriRuangan = {"standard","vip","vvip"};
+
     public static boolean EmailInput(String input){
         if(!input.contains("@")){
             return false;
@@ -87,6 +91,24 @@ public class ValidateInput {
         if(lower.equals(hari[0]) || lower.equals(hari[1]) || lower.equals(hari[2])
         || lower.equals(hari[3]) || lower.equals(hari[4]) || lower.equals(hari[5])
         || lower.equals(hari[6])){
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean kategoriObat(String input){
+        String lower = input.toLowerCase();
+        if(lower.equals(kategoriObat[0]) || lower.equals(kategoriObat[1]) || lower.equals(kategoriObat[2])
+        || lower.equals(kategoriObat[3]) || lower.equals(kategoriObat[4])){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean kategoriRuangan(String input){
+        String lower = input.toLowerCase();
+        if(lower.equals(kategoriRuangan[0]) || lower.equals(kategoriRuangan[1]) || lower.equals(kategoriRuangan[2])){
             return true;
         }
 
