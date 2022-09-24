@@ -27,10 +27,10 @@ public class DaftarShiftController {
             "<b>Ketentuan Mengisi Body Request</b><br>" +
             "<br>" +
             "{<br>" +
-            "&emsp;&emsp; \"kategori\":(isi dengan kategori pegawai non dokter(staff | perawat)).<br>" +
-            "&emsp;&emsp; \"foreign_id\":(isi dengan id pegawai non dokter(staff | perawat)).<br>" +
-            "&emsp;&emsp; \"startDateTime\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
-            "&emsp;&emsp; \"endDateTime\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
+            "&emsp;&emsp; \"kategori\":(Masukan kategori pegawai non dokter(staff | perawat)).<br>" +
+            "&emsp;&emsp; \"foreign_id\":(Masukan id pegawai non dokter(staff | perawat)).<br>" +
+            "&emsp;&emsp; \"startDateTime\":(Masukan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
+            "&emsp;&emsp; \"endDateTime\":(Masukan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
             "}<br>")
     @POST
     @Transactional
@@ -49,10 +49,10 @@ public class DaftarShiftController {
             "<b>Ketentuan Mengisi Body Request</b><br>" +
             "<br>" +
             "{<br>" +
-            "&emsp;&emsp; \"kategori\":(isi dengan kategori pegawai non dokter(staff | perawat)).<br>" +
-            "&emsp;&emsp; \"foreign_id\":(isi dengan id pegawai non dokter(staff | perawat)).<br>" +
-            "&emsp;&emsp; \"startDateTime\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
-            "&emsp;&emsp; \"endDateTime\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
+            "&emsp;&emsp; \"kategori\":(Masukan kategori pegawai non dokter(staff | perawat)).<br>" +
+            "&emsp;&emsp; \"foreign_id\":(Masukan id pegawai non dokter(staff | perawat)).<br>" +
+            "&emsp;&emsp; \"startDateTime\":(Masukan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
+            "&emsp;&emsp; \"endDateTime\":(Masukan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
             "}<br>")
     @PUT
     @Path("/{id}")

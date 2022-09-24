@@ -113,4 +113,12 @@ public class RuangInapService {
         result.put("message","Data berhasil dihapus.");
         return Response.ok(result).build();
     }
+
+
+    //untuk checkout daftar_rawat_inap
+    public void IsCheckout(long id){
+        RuangInap ruangInap = RuangInap.findById(id);
+        ruangInap.setKosong(true);
+        RuangInap.persist(ruangInap);
+    }
 }

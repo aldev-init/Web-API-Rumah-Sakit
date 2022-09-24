@@ -24,19 +24,20 @@ public class UpdateGajiController {
 
     @Operation(summary = "Untuk Menambah/Merubah Gaji Pegawai",description = "API ini digunakan untuk menambah/merubah gaji pegawai.<br>" +
             "<br>" +
+            "<b>Ketentuan Mengisi Body Request</b><br>" +
+            "{<br>" +
+            "&emsp;&emsp; \"<b>pegawai_kategori</b>\":(Masukan kategori pegawai,seperti list diatas)<br>" +
+            "&emsp;&emsp; \"<b>pegawaiId</b>\":(Masukan Id Pegawai)<br>" +
+            "&emsp;&emsp; \"<b>gaji</b>\":(Masukan gaji pegawai)<br>" +
+            "}<br>" +
+            "<br>"+
             "<b>Pegawai</b><br>" +
             "<ul>" +
             "<li> Dokter </li>" +
             "<li> Perawat </li>" +
             "<li> Staff </li>" +
             "</ul>" +
-            "<br>" +
-            "<b>Ketentuan Mengisi Body Request</b><br>" +
-            "{<br>" +
-            "&emsp;&emsp; \"pegawai_kategori\":(isi dengan kategori pegawai,seperti list diatas)<br>" +
-            "&emsp;&emsp; \"pegawaiId\":(isi dengan Id Pegawai)<br>" +
-            "&emsp;&emsp; \"gaji\":(isi dengan gaji pegawai)<br>" +
-            "}<br>")
+            "<br>" )
     @POST
     @Transactional
     @RolesAllowed({"User","Admin","Super Admin"})

@@ -7,6 +7,7 @@ import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +15,9 @@ import java.util.Optional;
 
 @ApplicationScoped
 public class DaftarRawatInapService {
+
+    @Inject
+    RuangInapService ruangInapService;
 
     @ConfigProperty(name = "PAGINATE_PER_PAGE")
     int paginate;
@@ -176,13 +180,12 @@ public class DaftarRawatInapService {
         }
 
         DaftarRawatInap checkout = daftarRawatInapOptional.get();
-        RuangInap ruangInap = RuangInap.findById(checkout.getRuangInapId());
 
         //update
         checkout.setCheckout(true);
         DaftarRawatInap.persist(checkout);
-        ruangInap.setKosong(true);
-        RuangInap.persist(ruangInap);
+        //ruang inap
+        ruangInapService.IsCheckout(checkout.getRuangInapId().getId());
 
         JsonObject result = new JsonObject();
         result.put("data",checkout);

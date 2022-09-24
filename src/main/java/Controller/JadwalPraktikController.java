@@ -25,11 +25,11 @@ public class JadwalPraktikController {
             "<b>Ketentuan Mengisi Body Request</b><br>" +
             "<br>" +
             "{<br>" +
-            "&emsp;&emsp; \"hari\":(isi dengan nama hari(senin,selasa,rabu....minggu)).<br>" +
-            "&emsp;&emsp; \"start_time\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
-            "&emsp;&emsp; \"end_time\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
-            "&emsp;&emsp; \"deskripsi\":(isi dengan deskripsi jadwal praktik).<br>" +
-            "&emsp;&emsp; \"dokter_id\":(isi dengan id dokter).<br>" +
+            "&emsp;&emsp; \"hari\":(Masukan nama hari(senin,selasa,rabu....minggu)).<br>" +
+            "&emsp;&emsp; \"start_time\":(Masukan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
+            "&emsp;&emsp; \"end_time\":(Masukan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
+            "&emsp;&emsp; \"deskripsi\":(Masukan deskripsi jadwal praktik).<br>" +
+            "&emsp;&emsp; \"dokter_id\":(Masukan id dokter).<br>" +
             "}<br>")
     @POST
     @Transactional
@@ -45,11 +45,11 @@ public class JadwalPraktikController {
             "<b>Ketentuan Mengisi Body Request</b><br>" +
             "<br>" +
             "{<br>" +
-            "&emsp;&emsp; \"hari\":(isi dengan nama hari(senin,selasa,rabu....minggu)).<br>" +
-            "&emsp;&emsp; \"start_time\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
-            "&emsp;&emsp; \"end_time\":(isi dengan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
-            "&emsp;&emsp; \"deskripsi\":(isi dengan deskripsi jadwal praktik).<br>" +
-            "&emsp;&emsp; \"dokter_id\":(isi dengan id dokter).<br>" +
+            "&emsp;&emsp; \"hari\":(Masukan nama hari(senin,selasa,rabu....minggu)).<br>" +
+            "&emsp;&emsp; \"start_time\":(Masukan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
+            "&emsp;&emsp; \"end_time\":(Masukan tanggal dan waktu,<b>T</b> adalah pemisah untuk tanggal dan waktu).<br>" +
+            "&emsp;&emsp; \"deskripsi\":(Masukan deskripsi jadwal praktik).<br>" +
+            "&emsp;&emsp; \"dokter_id\":(Masukan id dokter).<br>" +
             "}<br>")
     @PUT
     @Path("/{id}")
