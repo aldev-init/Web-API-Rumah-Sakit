@@ -2,10 +2,12 @@ package Service;
 
 import Models.UserPremission;
 import Models.Users;
+import Util.HashingSystem;
 import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -15,6 +17,10 @@ import java.util.Optional;
 
 @ApplicationScoped
 public class InitialAdminService {
+
+    @Inject
+    HashingSystem hash;
+
     @ConfigProperty(name = "NAME_ADMIN")
     String name;
 
@@ -33,6 +39,7 @@ public class InitialAdminService {
     @ConfigProperty(name = "USER_TYPE_ADMIN")
     String userType;
     public Response GenerateInitialAdmin(){
+
         //cek is super Admin present ?
         Optional<Users> superAdmin = Users.find("user_type = ?1",userType).firstResultOptional();
 
@@ -41,7 +48,7 @@ public class InitialAdminService {
             Users users = new Users();
             users.setName(name);
             users.setEmail(email);
-            users.setPassword(password);
+            users.setPassword(hash.Encrypt(password));
             users.setUsername(username);
             users.setPhoneNumber(phoneNumber);
             users.setUserType(userType);

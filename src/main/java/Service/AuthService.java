@@ -6,6 +6,7 @@ import DTO.AuthDTO.RegisterRequest;
 import Models.UserPremission;
 import Models.Users;
 import Util.GenerateToken;
+import Util.HashingSystem;
 import Util.UserUtil;
 import Util.ValidateInput;
 import io.smallrye.jwt.auth.principal.JWTParser;
@@ -27,24 +28,30 @@ public class AuthService {
 
     @Inject
     JWTParser parser;
+    @Inject
+    HashingSystem hash;
 
     @ConfigProperty(name = "PAGINATE_PER_PAGE")
     int paginate;
 
     public Response Login(LoginRequest request) throws ParseException {
+        //hashing initialize
+        String password = hash.Encrypt(request.password);
+
         Optional<Users> user = Users.find("username = ?1",request.username).firstResultOptional();
         if(!user.isPresent()){
             JsonObject result = new JsonObject();
             result.put("message","Anda Belum Terdaftar,Silahkan Daftar Terlebih Dahulu");
             return Response.status(Response.Status.NOT_FOUND).entity(result).build();
         }
-        Optional userPassword = Users.find("password = ?1",request.password).firstResultOptional();
-        if(!userPassword.isPresent()){
+        Optional userPassword = Users.find("password = ?1",password).firstResultOptional();
+        Users userLogin = user.get();
+        //verifiy password
+        if(userPassword.isPresent() && hash.Verify(userLogin.getPassword(),hash.Encrypt(request.password)) || !userPassword.isPresent()){
             JsonObject result = new JsonObject();
             result.put("message","Kesalahan Password");
             return Response.status(Response.Status.BAD_REQUEST).entity(result).build();
         }
-        Users userLogin = user.get();
         String token = GenerateToken.getToken(userLogin);
         JsonObject result = new JsonObject();
         result.put("data",userLogin);
@@ -96,7 +103,7 @@ public class AuthService {
         user.setName(request.name);
         user.setEmail(request.email);
         user.setUsername(request.username);
-        user.setPassword(request.password);
+        user.setPassword(hash.Encrypt(request.password));
         user.setPhoneNumber(request.phone_number);
         user.setUserType(request.user_type);
         user.setCreated_at(time);
