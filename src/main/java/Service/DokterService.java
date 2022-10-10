@@ -46,13 +46,13 @@ public class DokterService{
                 .Query("select nama_lengkap,email,phone_number,gaji,status from dokter");
         report.generatePdfReport();
         //get report name
-        String filename = report.getNameFile();
+        String fileNamePath = report.getNameFile();
         //get file from path filename
-        File file = new File(filename);
+        File file = new File(fileNamePath);
         //create Response Builder
         Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
         //add header untuk informasi tambahan bahwa ada file untuk didownload
-        responseBuilder.header("Content-Disposition","attachment;filename="+filename);
+        responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
         //casting to Uni<Response>
         Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
         //return
@@ -60,6 +60,47 @@ public class DokterService{
         /*JsonObject result = new JsonObject();
         result.put("message","Export Success");
         return Response.ok(result).build();*/
+    }
+    public Uni<Response> exportWord() throws Exception{
+        String formatTime = "yyyy-MM-dd_HH:mm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
+        String timeDate = LocalDateTime.now().format(formatter);
+        String fileName = "DaftarDokter_"+timeDate+".docx";
+        String pathOutput = "export/docx/"+fileName;
+        String jasperReportPath = "export/sample/DaftarDokter.jrxml";
+        GenerateReport report = new GenerateReport()
+                .jasperReportSamplePath(jasperReportPath)
+                .outputFileName(pathOutput)
+                .Connection(dataSource)
+                .Query("select nama_lengkap,email,phone_number,gaji,status from dokter");
+        report.generateWordReport();
+        String fileNamePath = report.getNameFile();
+        File file = new File(fileNamePath);
+        Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
+        responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
+        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
+        return responseUni;
+    }
+
+    public Uni<Response> exportPPTX() throws Exception{
+        String formatTime = "yyyy-MM-dd_HH:mm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
+        String timeDate = LocalDateTime.now().format(formatter);
+        String fileName = "DaftarDokter_"+timeDate+".pptx";
+        String pathOutput = "export/docx/"+fileName;
+        String jasperReportPath = "export/sample/DaftarDokter.jrxml";
+        GenerateReport report = new GenerateReport()
+                .jasperReportSamplePath(jasperReportPath)
+                .outputFileName(pathOutput)
+                .Connection(dataSource)
+                .Query("select nama_lengkap,email,phone_number,gaji,status from dokter");
+        report.generatePPTXReport();
+        String fileNamePath = report.getNameFile();
+        File file = new File(fileNamePath);
+        Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
+        responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
+        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
+        return responseUni;
     }
 
     public Response CreateDockter(CreateDokterRequest request){

@@ -48,10 +48,24 @@ public class DokterController {
     }
 
     @GET
-    @Path("/export")
+    @Path("/export/pdf")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Uni<Response> Export() throws Exception {
+    public Uni<Response> ExportPdf() throws Exception {
         return dokterService.exportPdf();
+    }
+
+    @GET
+    @Path("/export/word")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Uni<Response> ExportWord() throws Exception {
+        return dokterService.exportWord();
+    }
+
+    @GET
+    @Path("/export/pptx")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Uni<Response> ExportPPTX() throws Exception {
+        return dokterService.exportPPTX();
     }
 
     @POST
