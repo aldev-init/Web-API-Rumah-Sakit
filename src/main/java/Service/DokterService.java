@@ -3,26 +3,64 @@ package Service;
 import DTO.DokterDTO.CreateDokterRequest;
 import Models.DaftarPertemuan;
 import Models.Dokter;
+import Util.GenerateReport;
 import Util.ValidateInput;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.sql.DataSource;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class DokterService{
 
+    @Inject
+    DataSource dataSource;
     @ConfigProperty(name = "PAGINATE_PER_PAGE")
     int paginate;
+
+    //pdf export
+    public Uni<Response> exportPdf() throws Exception {
+        String formatTime = "yyyy-MM-dd_HH:mm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
+        String timeDate = LocalDateTime.now().format(formatter);
+        String fileName = "DaftarDokter_"+timeDate+".pdf";
+        String pathOutput = "export/pdf/"+fileName;
+        String jasperReportPath = "export/sample/DaftarDokter.jrxml";
+        //generate report
+        GenerateReport report = new GenerateReport()
+                .jasperReportSamplePath(jasperReportPath)
+                .outputFileName(pathOutput)
+                .Connection(dataSource)
+                .Query("select nama_lengkap,email,phone_number,gaji,status from dokter");
+        report.generatePdfReport();
+        //get report name
+        String filename = report.getNameFile();
+        //get file from path filename
+        File file = new File(filename);
+        //create Response Builder
+        Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
+        //add header untuk informasi tambahan bahwa ada file untuk didownload
+        responseBuilder.header("Content-Disposition","attachment;filename="+filename);
+        //casting to Uni<Response>
+        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
+        //return
+        return responseUni;
+        /*JsonObject result = new JsonObject();
+        result.put("message","Export Success");
+        return Response.ok(result).build();*/
+    }
 
     public Response CreateDockter(CreateDokterRequest request){
         if(!ValidateInput.BooleanInput(request.is_spesialis)){

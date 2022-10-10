@@ -2,6 +2,7 @@ package Controller;
 
 import DTO.DokterDTO.CreateDokterRequest;
 import Service.DokterService;
+import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
 import javax.annotation.security.RolesAllowed;
@@ -44,6 +45,13 @@ public class DokterController {
             @QueryParam("phone_number") String phoneNumber
     ){
         return dokterService.GetAll(page,spesialis,nama,email,phoneNumber);
+    }
+
+    @GET
+    @Path("/export")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Uni<Response> Export() throws Exception {
+        return dokterService.exportPdf();
     }
 
     @POST

@@ -42,7 +42,7 @@ public class PremissionTest {
         return user;
     }
 
-    @Test
+    /*@Test
     @Order(1)
     //simulasi user yang tidak memiliki izin,mengakses resource API Daftar Rawat Inap
     void CantAccess(){
@@ -77,7 +77,7 @@ public class PremissionTest {
                     .statusCode(403);
         });
 
-    }
+    }*/
 
     //simulasi user yang memiliki izin,mengakses resource API Daftar Rawat Inap
     @Test
