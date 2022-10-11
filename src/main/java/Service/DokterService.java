@@ -31,7 +31,7 @@ public class DokterService{
     int paginate;
 
     //pdf export
-    public Uni<Response> exportPdf() throws Exception {
+    public Response exportPdf() throws Exception {
         String formatTime = "yyyy-MM-dd_HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
         String timeDate = LocalDateTime.now().format(formatter);
@@ -52,16 +52,20 @@ public class DokterService{
         //create Response Builder
         Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
         //add header untuk informasi tambahan bahwa ada file untuk didownload
+        //sekaligus untuk memberi nama file yang didownload
+        /*
+            Response Builder untuk modifikasi Response
+         */
         responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
+
+        //biar asynchronus bisa pake uni,tapi karena belum mengerti cara pakai jadi jangan dlu
         //casting to Uni<Response>
-        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
-        //return
-        return responseUni;
-        /*JsonObject result = new JsonObject();
-        result.put("message","Export Success");
-        return Response.ok(result).build();*/
+        /*Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());*/
+
+
+        return responseBuilder.build();
     }
-    public Uni<Response> exportWord() throws Exception{
+    public Response exportWord() throws Exception{
         String formatTime = "yyyy-MM-dd_HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
         String timeDate = LocalDateTime.now().format(formatter);
@@ -78,11 +82,11 @@ public class DokterService{
         File file = new File(fileNamePath);
         Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
         responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
-        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
-        return responseUni;
+/*        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());*/
+        return responseBuilder.build();
     }
 
-    public Uni<Response> exportPPTX() throws Exception{
+    public Response exportPPTX() throws Exception{
         String formatTime = "yyyy-MM-dd_HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
         String timeDate = LocalDateTime.now().format(formatter);
@@ -99,8 +103,8 @@ public class DokterService{
         File file = new File(fileNamePath);
         Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
         responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
-        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
-        return responseUni;
+        /*Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());*/
+        return responseBuilder.build();
     }
 
     public Response CreateDockter(CreateDokterRequest request){

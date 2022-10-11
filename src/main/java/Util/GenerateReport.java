@@ -53,18 +53,19 @@ public class GenerateReport {
 
 
     public void generatePdfReport() throws Exception {
-        //load jasper sample from jasper soft studio
+        //load sample design dari jaspersoft studio
         JasperDesign jasperDesign = JRXmlLoader.load(this.jasperReportSamplePath);
-        //initialize query and set query
+        //object untuk buat query
         JRDesignQuery query = new JRDesignQuery();
         query.setText(this.query);
+        //set query atau inject query ke sample yg diload
         jasperDesign.setQuery(query);
-        //create report
+        //buat report
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         try{
-            //create connection
+            //buat koneksi
             Connection connection = this.dataSource.getConnection();
-            //print report
+            //cetak report
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,null,connection);
             //export
             JasperExportManager.exportReportToPdfFile(jasperPrint,this.outputFileName);
@@ -74,18 +75,19 @@ public class GenerateReport {
     }
 
     public void generateWordReport() throws Exception {
-        //load jasper sample from jasper soft studio
+        //load sample design dari jaspersoft studio
         JasperDesign jasperDesign = JRXmlLoader.load(this.jasperReportSamplePath);
-        //initialize query and set query
+        //object untuk buat query
         JRDesignQuery query = new JRDesignQuery();
         query.setText(this.query);
+        //set query atau inject query ke sample yg diload
         jasperDesign.setQuery(query);
         //create report
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         try{
-            //create connection
+            //buat koneksi
             Connection connection = this.dataSource.getConnection();
-            //print report
+            //cetak report
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,null,connection);
             //export
             JRDocxExporter export = new JRDocxExporter();
@@ -100,18 +102,19 @@ public class GenerateReport {
     }
 
     public void generatePPTXReport() throws Exception{
-        //load jasper sample from jasper soft studio
+        //load sample dari design yg dibuat dari jaspersoft studio
         JasperDesign jasperDesign = JRXmlLoader.load(this.jasperReportSamplePath);
-        //initialize query and set query
+        //object untuk buat query
         JRDesignQuery query = new JRDesignQuery();
         query.setText(this.query);
+        //set query atau inject query ke sample yg diload
         jasperDesign.setQuery(query);
-        //create report
+        //buat report
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         try{
-            //create connection
+            //buat koneksi
             Connection connection = this.dataSource.getConnection();
-            //print report
+            //cetak report
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,null,connection);
             //export
             JRPptxExporter export = new JRPptxExporter();

@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.File;
 
 @Path("/dokter")
 @Produces(MediaType.APPLICATION_JSON)
@@ -50,21 +51,21 @@ public class DokterController {
     @GET
     @Path("/export/pdf")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Uni<Response> ExportPdf() throws Exception {
+    public Response ExportPdf() throws Exception {
         return dokterService.exportPdf();
     }
 
     @GET
     @Path("/export/word")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Uni<Response> ExportWord() throws Exception {
+    public Response ExportWord() throws Exception {
         return dokterService.exportWord();
     }
 
     @GET
     @Path("/export/pptx")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Uni<Response> ExportPPTX() throws Exception {
+    public Response ExportPPTX() throws Exception {
         return dokterService.exportPPTX();
     }
 
