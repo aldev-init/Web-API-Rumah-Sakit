@@ -5,9 +5,14 @@ import Models.DaftarPertemuan;
 import Models.Dokter;
 import Util.GenerateReport;
 import Util.ValidateInput;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.lowagie.text.pdf.PdfDocument;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonObject;
+import net.sf.jasperreports.export.pdf.classic.ClassicDocument;
+import org.apache.poi.util.Units;
+import org.apache.poi.xwpf.usermodel.*;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -16,7 +21,7 @@ import javax.sql.DataSource;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import java.io.File;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -31,7 +36,7 @@ public class DokterService{
     int paginate;
 
     //pdf export
-    public Response exportPdf() throws Exception {
+    public Response exportPdf(int pagination) throws Exception {
         String formatTime = "yyyy-MM-dd_HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
         String timeDate = LocalDateTime.now().format(formatter);
@@ -44,7 +49,7 @@ public class DokterService{
                 .outputFileName(pathOutput)
                 .Connection(dataSource)
                 .Query("select nama_lengkap,email,phone_number,gaji,status from dokter");
-        report.generatePdfReport();
+        report.generatePdfReport(pagination);
         //get report name
         String fileNamePath = report.getNameFile();
         //get file from path filename
@@ -56,7 +61,7 @@ public class DokterService{
         /*
             Response Builder untuk modifikasi Response
          */
-        responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
+        responseBuilder.header("Content-Disposition","attachment;filename="+fileName);
 
         //biar asynchronus bisa pake uni,tapi karena belum mengerti cara pakai jadi jangan dlu
         //casting to Uni<Response>
@@ -65,28 +70,99 @@ public class DokterService{
 
         return responseBuilder.build();
     }
-    public Response exportWord() throws Exception{
+    /*public Response exportWord(int pagination) throws Exception{
         String formatTime = "yyyy-MM-dd_HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
         String timeDate = LocalDateTime.now().format(formatter);
         String fileName = "DaftarDokter_"+timeDate+".docx";
         String pathOutput = "export/docx/"+fileName;
-        String jasperReportPath = "export/sample/DaftarDokter.jrxml";
+        String jasperReportPath = "export/sample/DaftarDokterFlat.jrxml";
         GenerateReport report = new GenerateReport()
                 .jasperReportSamplePath(jasperReportPath)
                 .outputFileName(pathOutput)
                 .Connection(dataSource)
                 .Query("select nama_lengkap,email,phone_number,gaji,status from dokter");
-        report.generateWordReport();
+        report.generateWordReport(pagination);
         String fileNamePath = report.getNameFile();
         File file = new File(fileNamePath);
         Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
-        responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
-/*        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());*/
+        responseBuilder.header("Content-Disposition","attachment;filename="+fileName);
+        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
+        return responseBuilder.build();
+    }*/
+    public Response exportWord(int pagination) throws FileNotFoundException, IOException
+            , org.apache.poi.openxml4j.exceptions.InvalidFormatException {
+        String image = "/home/aldev/Gambar/logo-rumahsakit.png";
+        XWPFDocument doc = new XWPFDocument();
+        // add png image
+        XWPFRun r4 = doc.createParagraph().createRun();
+        r4.addBreak();
+        XWPFParagraph p = doc.createParagraph();
+        p.setAlignment(ParagraphAlignment.CENTER);
+        XWPFRun r = p.createRun();
+        try (FileInputStream is = new FileInputStream(image)) {
+            r.addPicture(is, Document.PICTURE_TYPE_PNG, image,
+                    Units.toEMU(150), Units.toEMU(150));
+        }
+        XWPFParagraph p1 = doc.createParagraph();
+        p1.setPageBreak(true);
+        p1.setAlignment(ParagraphAlignment.CENTER);
+        // Set Text to Bold and font size to 22 for first paragraph
+        XWPFRun r1 = p1.createRun();
+        r1.setBold(true);
+        r1.setFontSize(22);
+        r1.setText("Rumah Sakit Bakti Husada");
+        r1.setFontFamily("Arial");
+        r1.setColor("344762");
+        r1.addBreak();
+
+        XWPFRun r2 = p1.createRun();
+        r2.setFontSize(15);
+        r2.setText("Jalan Ceuri Jalan Terusan Kopo No.KM 13.5, Katapang, Kec. Katapang, Kabupaten Bandung, Jawa Barat 40971");
+        r2.setFontFamily("Arial");
+        r2.setColor("344762");
+        r2.addBreak();
+
+        XWPFRun r3 = p1.createRun();
+        r3.setFontSize(15);
+        r3.setText("Melayani Dengan Senyuman,Anda Sembuh Kami Nganggur");
+        r3.setFontFamily("Arial");
+        r3.setColor("344762");
+        r3.addBreak();
+
+        XWPFTable table = doc.createTable();
+        // Creating first Row
+        XWPFTableRow row1 = table.getRow(0);
+        row1.getCell(0).setText("NAMA LENGKAP");
+        row1.addNewTableCell().setText("EMAIL");
+        row1.addNewTableCell().setText("NOMOR TELEPON");
+        row1.addNewTableCell().setText("GAJI");
+        row1.addNewTableCell().setText("STATUS");
+
+        List<Dokter> dokter = Dokter.listAll();
+        // Creating second Row
+        for (int i = 0;i<dokter.size();i++){
+            XWPFTableRow row2 = table.createRow();
+            row2.getCell(0).setText(dokter.get(i).getNamaLengkap());
+            row2.getCell(1).setText(dokter.get(i).getEmail());
+            row2.getCell(2).setText(dokter.get(i).getPhoneNumber());
+            row2.getCell(3).setText(String.valueOf(dokter.get(i).getGaji()));
+            row2.getCell(4).setText(dokter.get(i).getStatus());
+        }
+
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        doc.write(b);
+        String formatTime = "yyyy-MM-dd_HH:mm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
+        String timeDate = LocalDateTime.now().format(formatter);
+        String fileName = "DaftarDokter_"+timeDate+".docx";
+        Response.ResponseBuilder responseBuilder = Response.ok(b.toByteArray());
+        responseBuilder.header("Content-Disposition","attachment; filename="+fileName);
         return responseBuilder.build();
     }
 
-    public Response exportPPTX() throws Exception{
+
+    public Response exportPPTX(int pagination) throws Exception{
         String formatTime = "yyyy-MM-dd_HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
         String timeDate = LocalDateTime.now().format(formatter);
@@ -98,12 +174,33 @@ public class DokterService{
                 .outputFileName(pathOutput)
                 .Connection(dataSource)
                 .Query("select nama_lengkap,email,phone_number,gaji,status from dokter");
-        report.generatePPTXReport();
+        report.generatePPTXReport(pagination);
         String fileNamePath = report.getNameFile();
         File file = new File(fileNamePath);
         Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
-        responseBuilder.header("Content-Disposition","attachment;filename="+fileNamePath);
+        responseBuilder.header("Content-Disposition","attachment;filename="+fileName);
         /*Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());*/
+        return responseBuilder.build();
+    }
+
+    public Response exportExcel(int pagination) throws Exception {
+        String formatTime = "yyyy-MM-dd_HH:mm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatTime);
+        String timeDate = LocalDateTime.now().format(formatter);
+        String fileName = "DaftarDokter_"+timeDate+".xlsx";
+        String pathOutput = "export/xlsx/"+fileName;
+        String jasperReportPath = "export/sample/DaftarDokterv2.jrxml";
+        GenerateReport report = new GenerateReport()
+                .jasperReportSamplePath(jasperReportPath)
+                .outputFileName(pathOutput)
+                .Connection(dataSource)
+                .Query("select nama_lengkap,email,phone_number,gaji,status from dokter");
+        report.generateExcelReport(pagination);
+        String fileNamePath = report.getNameFile();
+        File file = new File(fileNamePath);
+        Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
+        responseBuilder.header("Content-Disposition","attachment;filename="+fileName);
+        Uni<Response> responseUni = Uni.createFrom().item(responseBuilder.build());
         return responseBuilder.build();
     }
 

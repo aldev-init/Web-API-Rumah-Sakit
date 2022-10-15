@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DaftarDokter" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a390ae3e-82cf-49f7-962a-313d566c4848">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DaftarDokter" pageWidth="841" pageHeight="595" orientation="Landscape" columnWidth="801" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a390ae3e-82cf-49f7-962a-313d566c4848">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql"/>
+	<property name="com.jaspersoft.studio.unit." value="mm"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="mm"/>
 	<subDataset name="Dokter" uuid="33465177-b3a7-46e0-b100-82c38d234a03">
 		<property name="com.jaspersoft.studio.data.sql.tables">
 			<![CDATA[d2ViX3J1bWFoX3Nha2l0LmRva3RlciBBUyAsMTQ0LDIyNCw2NDg4MWVjNC1jMmJlLTRiOTEtOWQz
@@ -83,39 +92,12 @@ FROM web_rumah_sakit.dokter]]>
 		<groupExpression><![CDATA[(($V{REPORT_COUNT} - 1) / $P{MAX_DATA_PAGE})]]></groupExpression>
 	</group>
 	<pageHeader>
-		<band height="65" splitType="Stretch">
-			<rectangle>
-				<reportElement mode="Opaque" x="-20" y="-20" width="841" height="80" backcolor="#049BDB" uuid="742aa459-475d-4b2c-9c00-c543f1ed2661"/>
-			</rectangle>
-			<image>
-				<reportElement x="-11" y="-15" width="90" height="70" uuid="cce8d06e-20df-4c5e-996f-25805cc63917"/>
-				<box topPadding="0" leftPadding="18" bottomPadding="0" rightPadding="0"/>
-				<imageExpression><![CDATA["/home/aldev/Unduhan/logo-rumahsakit.png"]]></imageExpression>
+		<band height="67" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="-20" y="-20" width="842" height="80" uuid="5e7f8a8b-38de-4bc6-b524-55eb190d56d0"/>
+				<box padding="0"/>
+				<imageExpression><![CDATA["/home/aldev/JaspersoftWorkspace/ApiRumahSakit/asset/Headerv2.png"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="109" y="-14" width="640" height="39" uuid="df4eabc5-a618-40aa-9dc7-4a6b4c79c215"/>
-				<box leftPadding="8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="24"/>
-				</textElement>
-				<text><![CDATA[Rumah Sakit Bakti Husada]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="109" y="20" width="670" height="19" uuid="245abda1-674e-4267-bd2e-4ce4353d378d"/>
-				<box topPadding="3" leftPadding="8"/>
-				<textElement textAlignment="Left" verticalAlignment="Top">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Jalan Ceuri Jalan Terusan Kopo No.KM 13.5, Katapang, Kec. Katapang, Kabupaten Bandung, Jawa Barat 40971]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="97" y="39" width="670" height="19" uuid="cae832d5-d532-4fc4-93d7-815b27f78757"/>
-				<box topPadding="3" leftPadding="0"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Melayani Dengan Senyuman,Anda Sembuh Kami Nganggur]]></text>
-			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -272,14 +254,12 @@ FROM web_rumah_sakit.dokter]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="54" splitType="Stretch">
+		<band height="83" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<rectangle>
-				<reportElement x="-20" y="12" width="842" height="33" backcolor="#48D95D" uuid="952122d5-af83-4671-82b0-18db1f713aa8"/>
-			</rectangle>
 			<textField>
-				<reportElement x="-20" y="12" width="129" height="33" uuid="c0f12df2-9758-4015-8347-853fa53a991d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement mode="Opaque" x="-20" y="42" width="841" height="30" backcolor="#48D95D" uuid="d419fcbe-817f-4955-94ed-de28aa104f14"/>
+				<box leftPadding="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>

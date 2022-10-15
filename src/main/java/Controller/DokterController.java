@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 
 @Path("/dokter")
@@ -51,22 +52,41 @@ public class DokterController {
     @GET
     @Path("/export/pdf")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response ExportPdf() throws Exception {
-        return dokterService.exportPdf();
+    public Response ExportPdf(
+            @DefaultValue("9")
+            @QueryParam("size") int size
+    ) throws Exception {
+        return dokterService.exportPdf(size);
     }
 
     @GET
     @Path("/export/word")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response ExportWord() throws Exception {
-        return dokterService.exportWord();
+    public Response ExportWord(
+            @DefaultValue("9")
+            @QueryParam("size") int size
+    ) throws Exception {
+        return dokterService.exportWord(size);
     }
 
     @GET
     @Path("/export/pptx")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response ExportPPTX() throws Exception {
-        return dokterService.exportPPTX();
+    public Response ExportPPTX(
+            @DefaultValue("9")
+            @QueryParam("size") int size
+    ) throws Exception {
+        return dokterService.exportPPTX(size);
+    }
+
+    @GET
+    @Path("/export/excel")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response ExportExcel(
+            @DefaultValue("9")
+            @QueryParam("size") int size
+    ) throws Exception {
+        return dokterService.exportExcel(size);
     }
 
     @POST
